@@ -16,13 +16,14 @@ source devel/setup.bash
 # clone repos
 cd "$SCRIPT_ROOT_DIRECTORY/catkin_ws/src"
 git clone https://github.com/ros-perception/slam_gmapping.git
+git clone https://github.com/ros-teleop/teleop_twist_keyboard
 git clone https://github.com/turtlebot/turtlebot.git
 git clone https://github.com/turtlebot/turtlebot_interactions.git
 git clone https://github.com/turtlebot/turtlebot_simulator.git
 
 
 cd "$SCRIPT_ROOT_DIRECTORY/catkin_ws"
-rosdep -i install slam_gmapping turtlebot turtlebot_interactions turtlebot_simulator
+rosdep -i install slam_gmapping turtlebot turtlebot_interactions turtlebot_simulator teleop_twist_keyboard
 
 
 # catkin_make
