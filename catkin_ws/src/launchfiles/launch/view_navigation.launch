@@ -1,5 +1,7 @@
 <?xml version="1.0"?>
 <launch>
+  <arg name="package_path" default="$(find launchfiles)"/>
+
   <!--RVIZ-->
-  <node pkg="rviz" type="rviz" name="rviz" args="-d $(pwd)/../rvizConfig/slam.rviz"/>
+  <node pkg="rviz" type="rviz" name="rviz" args="-d $(arg package_path)/../rvizConfig/slam.rviz"/>
 </launch>
