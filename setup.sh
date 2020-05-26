@@ -47,3 +47,10 @@ mkdir -p "$SCRIPT_ROOT_DIRECTORY/catkin_ws/src/pick_objects"
 
 #  You will write a node that model the object with a marker in rviz.
 mkdir -p "$SCRIPT_ROOT_DIRECTORY/catkin_ws/src/add_markers"
+
+
+# Create and build a package of launch files
+cd "$SCRIPT_ROOT_DIRECTORY/catkin_ws/src"
+catkin_create_pkg launchfiles
+cd "$SCRIPT_ROOT_DIRECTORY/catkin_ws"
+catkin_make

@@ -1,0 +1,6 @@
+catkin_ws/build/
+catkin_ws/devel/
+catkin_ws/src/slam_gmapping/
+catkin_ws/src/turtlebot/
+catkin_ws/src/turtlebot_interactions/
+catkin_ws/src/turtlebot_simulator/
