@@ -8,7 +8,7 @@ sleep 5
 #xterm  -e "cd $SCRIPT_ROOT_DIRECTORY/../..; source devel/setup.bash ; roslaunch turtlebot_teleop keyboard_teleop.launch " &
 #sleep 2
 #xterm -e "cd $SCRIPT_ROOT_DIRECTORY/../..; source devel/setup.bash ; rosrun gmapping slam_gmapping  " &
-xterm -e "cd $SCRIPT_ROOT_DIRECTORY/../..; source devel/setup.bash ; roslaunch turtlebot_gazebo amcl_demo.launch map_file=$SCRIPT_ROOT_DIRECTORY/../map/map.yaml" &
+xterm -e "cd $SCRIPT_ROOT_DIRECTORY/../..; source devel/setup.bash ; roslaunch turtlebot_gazebo amcl_demo.launch map_file:=$SCRIPT_ROOT_DIRECTORY/../map/map.yaml" &
 sleep 3
 #xterm  -e "cd $SCRIPT_ROOT_DIRECTORY/../..; source devel/setup.bash ; rosrun rviz rviz -d $SCRIPT_ROOT_DIRECTORY/../rvizConfig/slam.rviz" &
 xterm  -e "cd $SCRIPT_ROOT_DIRECTORY/../..; source devel/setup.bash ; roslaunch launchfiles view_navigation.launch" &
