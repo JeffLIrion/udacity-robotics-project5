@@ -45,6 +45,8 @@ mkdir -p "$SCRIPT_ROOT_DIRECTORY/catkin_ws/src/rvizConfig"
 
 # You will write a node that commands your robot to drive to the pickup and drop off zones.
 mkdir -p "$SCRIPT_ROOT_DIRECTORY/catkin_ws/src/pick_objects"
+cd "$SCRIPT_ROOT_DIRECTORY/catkin_ws/src"
+catkin_create_pkg pick_objects
 
 #  You will write a node that model the object with a marker in rviz.
 mkdir -p "$SCRIPT_ROOT_DIRECTORY/catkin_ws/src/add_markers"
