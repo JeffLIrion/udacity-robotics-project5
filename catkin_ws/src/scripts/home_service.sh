@@ -13,8 +13,9 @@ sleep 3
 #xterm  -e "cd $SCRIPT_ROOT_DIRECTORY/../..; source devel/setup.bash ; rosrun rviz rviz -d $SCRIPT_ROOT_DIRECTORY/../rvizConfig/slam.rviz" &
 xterm  -e "cd $SCRIPT_ROOT_DIRECTORY/../..; source devel/setup.bash ; roslaunch launchfiles project5_rviz.launch" &
 
+(cd $SCRIPT_ROOT_DIRECTORY/../..; source devel/setup.bash; while ! rostopic info /map | grep -q map_server ; do echo 'Waiting for map_server' && sleep 1; done;)
 sleep 5
-xterm -e "cd $SCRIPT_ROOT_DIRECTORY/../..; source devel/setup.bash; while ! rostopic info /map | grep -q map_server ; do echo 'Waiting for map_server' && sleep 1; done; rosrun add_markers add_markers" &
+xterm -e "cd $SCRIPT_ROOT_DIRECTORY/../..; source devel/setup.bash; rosrun add_markers add_markers" &
 
-sleep 5
+sleep 15
 xterm -e "cd $SCRIPT_ROOT_DIRECTORY/../..; source devel/setup.bash; rosrun pick_objects pick_objects" &

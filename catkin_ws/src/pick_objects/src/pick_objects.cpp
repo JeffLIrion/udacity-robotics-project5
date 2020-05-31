@@ -16,7 +16,7 @@ constexpr int kPublishQueueSize = 10;
 
 constexpr double x1 = -1.;
 constexpr double y1 = 0.;
-constexpr double qw1 = 0.0;
+constexpr double qw1 = 1.0;
 
 constexpr double x2 = -1.;
 constexpr double y2 = -1.;
@@ -76,7 +76,7 @@ class PickObjects {
     action_client->sendGoal(goal);
 
     // Wait an infinite time for the results
-    action_client->waitForResult(ros::Duration(15));
+    action_client->waitForResult(ros::Duration(100));
 
     // Check if the robot reached its goal
     if (action_client->getState() == actionlib::SimpleClientGoalState::SUCCEEDED) {
@@ -111,17 +111,13 @@ int main(int argc, char **argv) {
   pick_objects.WaitForAddMarkers();
 
   // Drive to the first goal
-  if (!pick_objects.DriveToGoal(&action_client, project5::x1, project5::y1, project5::qw1)) {
-    ros::Duration(1).sleep();  // return -1;
-  }
+  pick_objects.DriveToGoal(&action_client, project5::x1, project5::y1, project5::qw1);
 
   // Wait 5 seconds
   ros::Duration(5).sleep();
 
   // Drive to the second goal
-  if (!pick_objects.DriveToGoal(&action_client, project5::x2, project5::y2, project5::qw2)) {
-    return -1;
-  }
+  pick_objects.DriveToGoal(&action_client, project5::x2, project5::y2, project5::qw2);
 
   ros::spin();
   return 0;
