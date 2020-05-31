@@ -68,24 +68,29 @@ class MarkerPublisher {
   ros::Subscriber success_sub_;
   visualization_msgs::Marker marker_;
   bool marker_is_displayed_ = false;
-
+  bool first_goal_ = true;
   /**
    * @brief Callback for when a new goal is provided.
    *
    * @param pose_msg The destination pose
    */
   void GoalCallback(const geometry_msgs::Pose& pose_msg) {
-    if (!marker_is_displayed_) {
+    if (marker_is_displayed_ || first_goal_) {
       ROS_INFO("Pick up from (%f, %f)", pose_msg.position.x, pose_msg.position.y);
     } else {
       ROS_INFO("Drop off at (%f, %f)", pose_msg.position.x, pose_msg.position.y);
     }
 
-    marker_is_displayed_ = !marker_is_displayed_;
-    marker_.action = marker_is_displayed_ ? visualization_msgs::Marker::ADD : visualization_msgs::Marker::DELETE;
     marker_.pose.position.x = pose_msg.position.x;
     marker_.pose.position.y = pose_msg.position.y;
-    pub_.publish(marker_);
+
+    if (first_goal_) {
+      marker_.action = visualization_msgs::Marker::ADD;
+      marker_is_displayed_ = true;
+      pub_.publish(marker_);
+    }
+
+    first_goal_ = false;
   }
 
   /**
