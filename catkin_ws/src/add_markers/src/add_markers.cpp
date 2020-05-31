@@ -95,10 +95,10 @@ class MarkerPublisher {
    */
   void SuccessCallback(const std_msgs::Bool& bool_msg) {
     if (!marker_is_displayed_) {
-      ROS_INFO("Drop off at (%f, %f) was %s", pose_msg.position.x, pose_msg.position.y,
+      ROS_INFO("Drop off at (%f, %f) was %s", marker_.pose.position.x, marker_.pose.position.y,
                bool_msg.data ? "successful" : "not successful");
     } else {
-      ROS_INFO("Pick up from (%f, %f) was %s", pose_msg.position.x, pose_msg.position.y,
+      ROS_INFO("Pick up from (%f, %f) was %s", marker_.pose.position.x, marker_.pose.position.y,
                bool_msg.data ? "successful" : "not successful");
     }
 
