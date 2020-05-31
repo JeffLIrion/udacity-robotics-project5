@@ -48,9 +48,9 @@ class MarkerPublisher {
     marker_.pose.orientation.w = 1.0;
 
     // Set the scale of the marker -- 1x1x1 here means 1m on a side
-    marker_.scale.x = 1.0;
-    marker_.scale.y = 1.0;
-    marker_.scale.z = 1.0;
+    marker_.scale.x = 0.5;
+    marker_.scale.y = 0.5;
+    marker_.scale.z = 0.5;
 
     // Set the color -- be sure to set alpha to something non-zero!
     marker_.color.r = 0.0f;
