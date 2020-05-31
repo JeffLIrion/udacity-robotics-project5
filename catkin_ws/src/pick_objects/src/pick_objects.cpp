@@ -2,6 +2,7 @@
 #include <move_base_msgs/MoveBaseAction.h>
 #include <ros/ros.h>
 
+namespace project5 {
 constexpr char kNodeName[] = "pick_objects";
 constexpr char kActionName[] = "move_base";
 constexpr char kFrameID[] = "map";
@@ -13,6 +14,7 @@ constexpr double qw1 = 0.0;
 constexpr double x2 = 3.0;
 constexpr double y2 = 4.0;
 constexpr double qw2 = 1.0;
+};  // namespace project5
 
 // Define a client for to send goal requests to the move_base server through a SimpleActionClient
 typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient;
@@ -30,7 +32,7 @@ bool DriveToGoal(MoveBaseClient *action_client, const double &x, const double &y
   move_base_msgs::MoveBaseGoal goal;
 
   // set up the frame parameters
-  goal.target_pose.header.frame_id = kFrameID;
+  goal.target_pose.header.frame_id = project5::kFrameID;
   goal.target_pose.header.stamp = ros::Time::now();
 
   // Define a position and orientation for the robot to reach
@@ -57,13 +59,13 @@ bool DriveToGoal(MoveBaseClient *action_client, const double &x, const double &y
 
 int main(int argc, char **argv) {
   // Initialize the simple_navigation_goals node
-  ros::init(argc, argv, kNodeName);
+  ros::init(argc, argv, project5::kNodeName);
 
   // Tell the action client that we want to spin a thread by default
-  MoveBaseClient action_client(kActionName, true);
+  MoveBaseClient action_client(project5::kActionName, true);
 
   // Drive to the first goal
-  if (!DriveToGoal(&action_client, x1, y1, qw1)) {
+  if (!DriveToGoal(&action_client, project5::x1, project5::y1, project5::qw1)) {
     return -1;
   }
 
@@ -71,7 +73,7 @@ int main(int argc, char **argv) {
   ros::Duration(5).sleep();
 
   // Drive to the second goal
-  if (!DriveToGoal(&action_client, x2, y2, qw2)) {
+  if (!DriveToGoal(&action_client, project5::x2, project5::y2, project5::qw2)) {
     return -1;
   }
 
