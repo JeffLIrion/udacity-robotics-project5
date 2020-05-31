@@ -11,10 +11,10 @@ sleep 5
 xterm -e "cd $SCRIPT_ROOT_DIRECTORY/../..; source devel/setup.bash ; roslaunch turtlebot_gazebo amcl_demo.launch map_file:=$SCRIPT_ROOT_DIRECTORY/../map/map.yaml" &
 sleep 3
 #xterm  -e "cd $SCRIPT_ROOT_DIRECTORY/../..; source devel/setup.bash ; rosrun rviz rviz -d $SCRIPT_ROOT_DIRECTORY/../rvizConfig/slam.rviz" &
-xterm  -e "cd $SCRIPT_ROOT_DIRECTORY/../..; source devel/setup.bash ; roslaunch launchfiles view_navigation.launch" &
+xterm  -e "cd $SCRIPT_ROOT_DIRECTORY/../..; source devel/setup.bash ; roslaunch launchfiles project5_rviz.launch" &
 
 sleep 5
-xterm -e "cd $SCRIPT_ROOT_DIRECTORY/../..; source devel/setup.bash; rosrun add_markers add_markers" &
+xterm -e "cd $SCRIPT_ROOT_DIRECTORY/../..; source devel/setup.bash; while ! rostopic info /map | grep -q map_server ; do echo 'Waiting for map_server' && sleep 1; done; rosrun add_markers add_markers" &
 
 sleep 5
 xterm -e "cd $SCRIPT_ROOT_DIRECTORY/../..; source devel/setup.bash; rosrun pick_objects pick_objects" &
