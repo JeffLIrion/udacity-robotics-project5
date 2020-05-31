@@ -78,7 +78,7 @@ class MarkerPublisher {
     marker_.action = visualization_msgs::Marker::ADD;
     marker_.pose.position.x = pose_msg.position.x;
     marker_.pose.position.y = pose_msg.position.y;
-    PublishMarker();
+    pub_.publish(marker_);
   }
 
   /**
@@ -94,21 +94,6 @@ class MarkerPublisher {
     }
     ROS_INFO("Deleting the marker because the goal was reached");
     marker_.action = visualization_msgs::Marker::DELETE;
-    PublishMarker();
-  }
-
-  /**
-   * @brief Publish the marker.
-   */
-  void PublishMarker() {
-    // Publish the marker
-    while (pub_.getNumSubscribers() < 1) {
-      if (!ros::ok()) {
-        return;
-      }
-      ROS_WARN_ONCE("Please create a subscriber to the marker");
-      sleep(1);
-    }
     pub_.publish(marker_);
   }
 };
