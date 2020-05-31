@@ -14,12 +14,12 @@ constexpr char kGoalTopic[] = "/pick_objects_goal";
 constexpr char kSuccessTopic[] = "/pick_objects_success";
 constexpr int kPublishQueueSize = 10;
 
-constexpr double x1 = -1.;
+constexpr double x1 = -5.;
 constexpr double y1 = 0.;
 constexpr double qw1 = 1.0;
 
-constexpr double x2 = -1.;
-constexpr double y2 = -1.;
+constexpr double x2 = -6.;
+constexpr double y2 = -4.;
 constexpr double qw2 = 1.0;
 };  // namespace project5
 
