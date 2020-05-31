@@ -20,8 +20,8 @@ class MarkerPublisher {
     pub_ = node_handle_.advertise<visualization_msgs::Marker>(kTopic, 1);
 
     // Subscribe to topics published by `pick_objects.cpp`
-    goal_sub_ = node_handle_.subscribe(kGoalTopic, kSubscribeQueueSize, &MarkerPublisher::AddMarker, this);
-    success_sub_ = node_handle_.subscribe(kSuccessTopic, kSubscribeQueueSize, &MarkerPublisher::DeleteMarker, this);
+    goal_sub_ = node_handle_.subscribe(kGoalTopic, kSubscribeQueueSize, &MarkerPublisher::GoalCallback, this);
+    success_sub_ = node_handle_.subscribe(kSuccessTopic, kSubscribeQueueSize, &MarkerPublisher::SuccessCallback, this);
 
     // Set the frame ID and timestamp.  See the TF tutorials for information on these.
     marker_.header.frame_id = kFrameID;
