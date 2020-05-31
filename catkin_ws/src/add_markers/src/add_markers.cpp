@@ -67,28 +67,43 @@ class MarkerPublisher {
   ros::Subscriber goal_sub_;
   ros::Subscriber success_sub_;
   visualization_msgs::Marker marker_;
+  bool marker_is_displayed_ = false;
 
   /**
-   * @brief Add a marker.
+   * @brief Callback for when a new goal is provided.
    *
    * @param pose_msg The destination pose
    */
-  void AddMarker(const geometry_msgs::Pose& pose_msg) {
-    ROS_INFO("Adding a marker at (%f, %f)", pose_msg.position.x, pose_msg.position.y);
-    marker_.action = visualization_msgs::Marker::ADD;
+  void GoalCallback(const geometry_msgs::Pose& pose_msg) {
+    if (!marker_is_displayed_) {
+      ROS_INFO("Pick up from (%f, %f)", pose_msg.position.x, pose_msg.position.y);
+    } else {
+      ROS_INFO("Drop off at (%f, %f)", pose_msg.position.x, pose_msg.position.y);
+    }
+
+    marker_is_displayed_ = !marker_is_displayed_;
+    marker_.action = marker_is_displayed_ ? visualization_msgs::Marker::ADD : visualization_msgs::Marker::DELETE;
     marker_.pose.position.x = pose_msg.position.x;
     marker_.pose.position.y = pose_msg.position.y;
     pub_.publish(marker_);
   }
 
   /**
-   * @brief Delete a marker.
+   * @brief Callback when the robot reaches its destination.
    *
-   * @param bool_msg Whether or not the robot reached its destination.
+   * @param bool_msg Whether or not the robot successfully reached its destination
    */
-  void DeleteMarker(const std_msgs::Bool& bool_msg) {
-    ROS_INFO("Deleting the marker -- the goal was %sreached", bool_msg.data ? "" : "not ");
-    marker_.action = visualization_msgs::Marker::DELETE;
+  void SuccessCallback(const std_msgs::Bool& bool_msg) {
+    if (!marker_is_displayed_) {
+      ROS_INFO("Drop off at (%f, %f) was %s", pose_msg.position.x, pose_msg.position.y,
+               bool_msg.data ? "successful" : "not successful");
+    } else {
+      ROS_INFO("Pick up from (%f, %f) was %s", pose_msg.position.x, pose_msg.position.y,
+               bool_msg.data ? "successful" : "not successful");
+    }
+
+    marker_is_displayed_ = !marker_is_displayed_;
+    marker_.action = marker_is_displayed_ ? visualization_msgs::Marker::ADD : visualization_msgs::Marker::DELETE;
     pub_.publish(marker_);
   }
 };
