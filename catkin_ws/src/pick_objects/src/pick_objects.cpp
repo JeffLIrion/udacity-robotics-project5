@@ -7,19 +7,19 @@
 namespace project5 {
 constexpr char kNodeName[] = "pick_objects";
 constexpr char kActionName[] = "move_base";
-constexpr char kFrameID[] = "map";
+constexpr char kFrameID[] = "odom";
 
 // Topics
 constexpr char kGoalTopic[] = "/pick_objects_goal";
 constexpr char kSuccessTopic[] = "/pick_objects_success";
 constexpr int kPublishQueueSize = 10;
 
-constexpr double x1 = 1.0;
-constexpr double y1 = 2.0;
+constexpr double x1 = -1.;
+constexpr double y1 = 0.;
 constexpr double qw1 = 0.0;
 
-constexpr double x2 = 3.0;
-constexpr double y2 = 4.0;
+constexpr double x2 = -1.;
+constexpr double y2 = -1.;
 constexpr double qw2 = 1.0;
 };  // namespace project5
 
@@ -76,7 +76,7 @@ class PickObjects {
     action_client->sendGoal(goal);
 
     // Wait an infinite time for the results
-    action_client->waitForResult();
+    action_client->waitForResult(ros::Duration(15));
 
     // Check if the robot reached its goal
     if (action_client->getState() == actionlib::SimpleClientGoalState::SUCCEEDED) {
@@ -112,7 +112,7 @@ int main(int argc, char **argv) {
 
   // Drive to the first goal
   if (!pick_objects.DriveToGoal(&action_client, project5::x1, project5::y1, project5::qw1)) {
-    return -1;
+    ros::Duration(1).sleep();  // return -1;
   }
 
   // Wait 5 seconds
@@ -123,5 +123,6 @@ int main(int argc, char **argv) {
     return -1;
   }
 
+  ros::spin();
   return 0;
 }

@@ -4,7 +4,7 @@
 #include <visualization_msgs/Marker.h>
 
 constexpr char kNodeName[] = "add_markers";
-constexpr char kFrameID[] = "map";
+constexpr char kFrameID[] = "odom";
 constexpr char kMarkerNamespace[] = "udacity_project5";
 constexpr char kTopic[] = "visualization_marker";
 constexpr int kMarkerType = visualization_msgs::Marker::CUBE;
@@ -87,12 +87,7 @@ class MarkerPublisher {
    * @param bool_msg Whether or not the robot reached its destination.
    */
   void DeleteMarker(const std_msgs::Bool& bool_msg) {
-    // If the robot did not reach the destination, don't do anything
-    if (!bool_msg.data) {
-      ROS_INFO("Not deleting the marker because the goal was not reached");
-      return;
-    }
-    ROS_INFO("Deleting the marker because the goal was reached");
+    ROS_INFO("Deleting the marker -- the goal was %sreached", bool_msg.data ? "" : "not ");
     marker_.action = visualization_msgs::Marker::DELETE;
     pub_.publish(marker_);
   }
