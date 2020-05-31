@@ -8,8 +8,8 @@ add_compile_options(-std=c++11)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-  move_base_msgs
   actionlib
+  move_base_msgs
   roscpp
 )
 
@@ -207,4 +207,4 @@ include_directories(
 
 add_executable(pick_objects src/pick_objects.cpp)
 target_link_libraries(pick_objects ${catkin_LIBRARIES})
-add_dependencies(pick_objects move_base_msgs actionlib roscpp)
+add_dependencies(pick_objects actionlib move_base_msgs roscpp)
