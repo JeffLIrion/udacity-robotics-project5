@@ -74,6 +74,7 @@ class MarkerPublisher {
    * @param pose_msg The destination pose
    */
   void AddMarker(const geometry_msgs::Pose& pose_msg) {
+    ROS_INFO("Adding a marker at (%f, %f)", pose_msg.position.x, pose_msg.position.y);
     marker_.action = visualization_msgs::Marker::ADD;
     marker_.pose.position.x = pose_msg.position.x;
     marker_.pose.position.y = pose_msg.position.y;
@@ -88,8 +89,10 @@ class MarkerPublisher {
   void DeleteMarker(const std_msgs::Bool& bool_msg) {
     // If the robot did not reach the destination, don't do anything
     if (!bool_msg.data) {
+      ROS_INFO("Not deleting the marker because the goal was not reached");
       return;
     }
+    ROS_INFO("Deleting the marker because the goal was reached");
     marker_.action = visualization_msgs::Marker::DELETE;
     PublishMarker();
   }

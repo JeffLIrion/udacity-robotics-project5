@@ -35,6 +35,15 @@ class PickObjects {
   }
 
   /**
+   * @brief Wait for `add_markers.cpp` to subscribe to the "/pick_objects_goal" and "/pick_objects_success" targets.
+   */
+  void WaitForAddMarkers() {
+    while (goal_pub_.getNumSubscribers() < 1 || success_pub_.getNumSubscribers() < 1) {
+      ros::Duration(1).sleep();
+    }
+  }
+
+  /**
    * @brief Drive to the specified position.
    *
    * @param action_client The move base action client
@@ -99,6 +108,7 @@ int main(int argc, char **argv) {
   MoveBaseClient action_client(project5::kActionName, true);
 
   PickObjects pick_objects;
+  pick_objects.WaitForAddMarkers();
 
   // Drive to the first goal
   if (!pick_objects.DriveToGoal(&action_client, project5::x1, project5::y1, project5::qw1)) {
