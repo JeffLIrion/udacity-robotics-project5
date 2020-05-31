@@ -4,7 +4,7 @@
 
 constexpr char kNodeName[] = "pick_objects";
 constexpr char kActionName[] = "move_base";
-constexpr char kFrameID[] = "base_footprint";
+constexpr char kFrameID[] = "map";
 
 constexpr double x1 = 1.0;
 constexpr double y1 = 2.0;
